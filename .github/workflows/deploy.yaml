@@ -12,7 +12,7 @@ jobs:
     name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
@@ -30,7 +30,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy
 
-      - name: Adding markdown
+      - name: Add deployment summary
         run: |
           cat >> $GITHUB_STEP_SUMMARY <<ENDBLOCK
           # Deploying with Cloudflare Pages
