@@ -22,12 +22,21 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - name: Publish
-        uses: cloudflare/pages-action@v1
+      - name: Deploy
+        id: deployment
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: phn-dev
-          directory: 'dist'
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: '3'
+          command: pages deploy
+
+      - name: Adding markdown
+        run: |
+          cat >> $GITHUB_STEP_SUMMARY <<ENDBLOCK
+          # Deploying with Cloudflare Pages
+
+          | Name                    | Result |
+          | ----------------------- | - |
+          | **Last commit:**        | ${{ github.sha }} |
+          | **Preview URL**:        | ${{ steps.deployment.outputs.deployment-url }} |
+          ENDBLOCK
