@@ -19,7 +19,7 @@ import Card from '../components/Card.astro';
 
 <style>
     :root {
-        --astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
+        --astro-gradient: linear-gradient(0deg, oklch(51.42% 0.2662 276.61), oklch(85% 0.1884 276.61));
     }
 
     h1 {
@@ -40,28 +40,17 @@ import Card from '../components/Card.astro';
         background-size: 100% 200%;
         background-position-y: 100%;
         border-radius: 0.4rem;
-        animation: pulse 4s ease-in-out infinite;
     }
 
     .text-center {
         text-align: center;
     }
 
-    @keyframes pulse {
-        0%,
-        100% {
-            background-position-y: 0%;
-        }
-        50% {
-            background-position-y: 80%;
-        }
-    }
-
     .introduction {
         line-height: 1.6;
         margin: 1rem 0;
-        background: #4f39fa;
-        padding: 1rem;
+        background: oklch(51.42% 0.2662 276.61);
+        padding: 0.5rem;
         border-radius: 0.4rem;
         color: var(--color-bg);
     }

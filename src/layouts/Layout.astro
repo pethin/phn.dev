@@ -25,9 +25,11 @@ const { title } = Astro.props;
 		--font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
 		--font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
 
-		--color-text: hsl(12, 5%, 4%);
-		--color-bg: hsl(10, 21%, 95%);
-		--color-border: hsl(17, 24%, 90%);
+		--color-text: oklch(14.6% 0.0017 17.35);
+		--color-bg: oklch(95.9% 0.0054 17.25);
+		--color-border: oklch(92.18% 0.0112 45.72);
+
+		--background-gradient: linear-gradient(45deg, oklch(96% 0.01 21.97), oklch(96% 0.01 146.02));
 	}
 
 	html {
@@ -35,10 +37,27 @@ const { title } = Astro.props;
 		font-size: var(--font-size-base);
 		color: var(--color-text);
 		background-color: var(--color-bg);
+		background-size: 100% 200%;
+        background-position-y: 100%;
+        animation: pulse 4s ease-in-out infinite;
 	}
+
+	@keyframes pulse {
+        0%,
+        100% {
+            background-position-y: 0%;
+        }
+        50% {
+            background-position-y: 80%;
+        }
+    }
 
 	body {
 		margin: 0;
+		background-image: var(--background-gradient);
+        background-size: 100% 200%;
+        background-position-y: 100%;
+        min-height: 100vh;
 	}
 
 
