@@ -3,38 +3,39 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read
       deployments: write
 
-    name: Deploy to Cloudflare Pages
+    name: Deploy to Cloudflare Workers
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
 
       - uses: actions/setup-node@v4
         with:
           node-version-file: 'package.json'
-          cache: 'npm'
+          cache: 'pnpm'
 
-      - run: npm install -g npm@latest
-      - run: npm ci
-      - run: npm run build
+      - run: pnpm install
+      - run: pnpm run build
 
       - name: Deploy
         id: deployment
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4.0.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy
+          command: deploy
 
       - name: Add deployment summary
         run: |
           cat >> $GITHUB_STEP_SUMMARY <<ENDBLOCK
-          # Deploying with Cloudflare Pages
+          # Deploying with Cloudflare Workers
 
           | Name                    | Result |
           | ----------------------- | - |

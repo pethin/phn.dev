@@ -1,7 +1,0 @@
-name = "phn-dev"
-pages_build_output_dir = "dist"
-compatibility_date = "2025-01-19"
-send_metrics = false
-
-[placement]
-mode = "smart"
